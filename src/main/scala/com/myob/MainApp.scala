@@ -1,10 +1,10 @@
-import java.io.File
+package com.myob
 
-import com.myob.{IncomeTax, PaymentCalculator}
+import java.io.File
 
 import scala.io.Source
 
-object Main {
+object MainApp {
   def main(args: Array[String]): Unit = args.length match {
     case 3 =>
       val users = Source.fromFile(new File(args(0)))

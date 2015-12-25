@@ -2,12 +2,12 @@
 ## Usage:
 open sbt shell, then
 ```
-runMain Main src/test/resources/input.csv src/main/resources/default_tax_table output.txt
+runMain com.myob.MainApp src/test/resources/input.csv src/main/resources/default_tax_table output.txt
 ```
 ### Arguments:
-- The first parameter is input file path (required), otherwise the usage tips is printed
-- The second parameter is tax table file path (optional), if it is omitted, default tax table is used. 
-- The third parameter is out put file path (optional), if it is omitted, the app will output the result to console directly.   
+- The first argument is input file path (required), otherwise the usage tip will be printed.
+- The second argument is tax table file path (optional), if it is omitted, default tax table is used. 
+- The third argument is out put file path (optional), if it is omitted, the app will output the result to console directly.   
  
 
 ## Tasks
