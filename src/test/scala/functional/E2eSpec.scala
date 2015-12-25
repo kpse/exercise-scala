@@ -14,13 +14,11 @@ class E2eSpec extends Specification {
 
   def report = {
     val users = Source.fromURL(getClass.getResource("/input.csv"))
-    val taxTable = Source.fromURL(getClass.getResource("/tax_table"))
+    val taxTable = Source.fromURL(getClass.getResource("/default_tax_table"))
+    val expectation = Source.fromURL(getClass.getResource("/output_sample.csv"))
 
-    val lines = users.getLines()
-    System.out.println(lines)
-    val outputs: List[String] = lines.map(PaymentCalculator(IncomeTax(taxTable.getLines().toList)).payslip).toList
+    val outputs = users.getLines().map(PaymentCalculator(IncomeTax(taxTable.getLines().toList)).payslip).toList
 
-    outputs must contain("David Rudd,01 March – 31 March,5004,922,4082,450")
-    outputs must contain("Ryan Chen,01 March – 31 March,10000,2696,7304,1000")
+    outputs must containAllOf(expectation.getLines().toList)
   }
 }
