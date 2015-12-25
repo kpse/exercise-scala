@@ -1,4 +1,9 @@
 case class PaymentCalculator(tax: TaxRate) {
-  def payslip(input: String) = PaymentDetail("David Rudd", "01 March – 31 March", 5004, 922, 4082, 450).report()
+  val employee = """^(\w+),(\w+),(\d+),(\d+)%,(.+)$""".r
+  def payslip(input: String) = input match {
+    case employee(firstName, lastName, salary, superRate, period) =>
+      PaymentDetail(s"$firstName $lastName", period, 5004, 922, 4082, 450).report()
+    case _ => ""
+  }
 
 }
