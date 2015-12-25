@@ -2,13 +2,13 @@
 
 ## Tasks
 - report payment slip
-- detail: pay period
-- detail: gross income
-- detail: income tax
+- detail: pay period (done)
+- detail: gross income (done)
+- detail: income tax (done)
   - base on Monthly Tax Rate
-- detail: net income  
-- detail: super
-- rounding rule
+- detail: net income (done)  
+- detail: super (done)
+- rounding rule (done)
 - read Monthly Tax Rate from input
 - pass the second person test
 

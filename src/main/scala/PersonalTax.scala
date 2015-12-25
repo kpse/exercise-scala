@@ -11,7 +11,12 @@ case class PersonalTax(salary: Double, superRate: Double) {
   }
 
   def incomeTax: RoundingDollar = {
-    (3572 + (salary - 37000) * 0.325) / 12
+    if (salary > 80000) {
+      (17547 + (salary - 80000) * 0.37) / 12
+    } else {
+      (3572 + (salary - 37000) * 0.325) / 12
+    }
+
   }
 
   def grossIncome: RoundingDollar = {
