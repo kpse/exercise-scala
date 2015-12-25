@@ -1,3 +1,5 @@
+package com.myob
+
 import scala.math.BigDecimal.RoundingMode
 
 case class RoundingDollar(number: Double) {

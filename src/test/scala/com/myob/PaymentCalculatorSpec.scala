@@ -1,3 +1,5 @@
+package com.myob
+
 import org.specs2.Specification
 
 class PaymentCalculatorSpec extends Specification {

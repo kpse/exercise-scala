@@ -1,3 +1,5 @@
+package com.myob
+
 
 
 case class IncomeTax(taxTable: List[String]) {

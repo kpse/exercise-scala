@@ -1,3 +1,5 @@
+package com.myob
+
 case class PersonalTax(salary: Double, superRate: Double, incomeTaxRate: IncomeTax) {
   implicit def doubleToRoundingDollar(number: Double): RoundingDollar = RoundingDollar(number)
 

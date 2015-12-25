@@ -1,3 +1,5 @@
+package com.myob
+
 case class PaymentCalculator(tax: IncomeTax) {
   val employee = """^(\w+),(\w+),(\d+),(\d+)%,(.+)$""".r
 
