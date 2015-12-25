@@ -1,4 +1,4 @@
-case class PersonalTax(salary: Double, superRate: Double, incomeTaxRate: TaxRate) {
+case class PersonalTax(salary: Double, superRate: Double, incomeTaxRate: IncomeTax) {
   implicit def doubleToRoundingDollar(number: Double): RoundingDollar = RoundingDollar(number)
 
   implicit def IntToRoundingDollar(number: Int): RoundingDollar = RoundingDollar(number)

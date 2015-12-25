@@ -1,4 +1,4 @@
-case class PaymentCalculator(tax: TaxRate) {
+case class PaymentCalculator(tax: IncomeTax) {
   val employee = """^(\w+),(\w+),(\d+),(\d+)%,(.+)$""".r
 
   def payslip(input: String) = input match {
