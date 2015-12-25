@@ -21,7 +21,7 @@ object Main {
       val taxTable = Source.fromURL(getClass.getResource("/default_tax_table"))
       users.getLines().map(PaymentCalculator(IncomeTax(taxTable.getLines().toList)).payslip).foreach(println)
     case _ =>
-      println("usage:\n myob userSalary.csv taxTable.csv out.csv")
+      println("usage:\n myob userSalary.csv [taxTable.csv [out.csv]]")
   }
 
   def printToFile(f: java.io.File)(op: java.io.PrintWriter => Unit) {

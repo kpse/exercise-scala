@@ -1,16 +1,26 @@
 # Payment slip
+## Usage:
+open sbt shell, then
+```
+runMain Main src/test/resources/input.csv src/main/resources/default_tax_table output.txt
+```
+### Arguments:
+- The first parameter is input file path (required), otherwise the usage tips is printed
+- The second parameter is tax table file path (optional), if it is omitted, default tax table is used. 
+- The third parameter is out put file path (optional), if it is omitted, the app will output the result to console directly.   
+ 
 
 ## Tasks
-- report payment slip
+- report payment slip (done)
 - detail: pay period (done)
 - detail: gross income (done)
 - detail: income tax (done)
-  - base on Monthly Tax Rate
+  - base on Monthly Tax Rate (done)
 - detail: net income (done)  
 - detail: super (done)
 - rounding rule (done)
-- read Monthly Tax Rate from input
-- pass the second person test
+- read Monthly Tax Rate from input (done)
+- pass the second person test (done)
 
  
 ## Background
