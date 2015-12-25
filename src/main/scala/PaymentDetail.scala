@@ -1,3 +1,3 @@
-case class PaymentDetail(name: String, period: String, grossIncome: Int, incomeTax: Int, netIncome: Int, superTax: Int) {
+case class PaymentDetail(name: String, period: String, grossIncome: RoundingDollar, incomeTax: RoundingDollar, netIncome: RoundingDollar, superTax: RoundingDollar) {
   def report() = s"$name,$period,$grossIncome,$incomeTax,$netIncome,$superTax"
 }
