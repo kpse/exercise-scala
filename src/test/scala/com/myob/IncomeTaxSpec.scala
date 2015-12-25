@@ -10,8 +10,9 @@ class IncomeTaxSpec extends Specification {
   The IncomeTax should
     report tax base on input table                                $report
     report tax with a basic tax value                             $reportWithBasic
-    report tax with a non-taxable range                             $reportWithNonTaxableRange
-    report tax with a roof-break range                             $reportWithRoofBreak
+    report tax with a non-taxable range                           $reportWithNonTaxableRange
+    report tax with a roof-break range                            $reportWithRoofBreak
+    report tax with a 0 base for all range                        $reportWithOneRate
                                                       """
 
   def report = {
@@ -32,6 +33,11 @@ class IncomeTaxSpec extends Specification {
   def reportWithRoofBreak = {
     val tax = IncomeTax(List("$180,001 and over       $54,547 plus 45c for each $1 over $180,000")).of(180002)
     s"$tax" must equalTo("4546")
+  }
+
+  def reportWithOneRate = {
+    val tax = IncomeTax(List("0 and over       $12 plus 50c for each $1 over $100")).of(100 + 24)
+    s"$tax" must equalTo("2")
   }
 
 }
