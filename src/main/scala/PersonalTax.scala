@@ -1,5 +1,4 @@
 case class PersonalTax(salary: Double, superRate: Double) {
-
   implicit def doubleToRoundingDollar(number: Double): RoundingDollar = RoundingDollar(number)
   implicit def IntToRoundingDollar(number: Int): RoundingDollar = RoundingDollar(number)
 
@@ -18,4 +17,6 @@ case class PersonalTax(salary: Double, superRate: Double) {
   def grossIncome: RoundingDollar = {
     salary / 12
   }
+
+  def report = List(grossIncome,incomeTax,netIncome,superTax).mkString(",")
 }

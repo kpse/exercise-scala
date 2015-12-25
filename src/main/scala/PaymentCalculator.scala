@@ -3,8 +3,7 @@ case class PaymentCalculator(tax: TaxRate) {
 
   def payslip(input: String) = input match {
     case employee(firstName, lastName, salary, superRate, period) =>
-      val myTax = tax.of(salary.toDouble, superRate.toDouble)
-      PaymentDetail(s"$firstName $lastName", period, myTax.grossIncome, myTax.incomeTax, myTax.netIncome, myTax.superTax).report()
+      PaymentDetail(s"$firstName $lastName", period, tax.of(salary.toDouble, superRate.toDouble)).report()
     case _ => ""
   }
 
