@@ -21,7 +21,9 @@ runMain com.myob.MainApp src/test/resources/input.csv src/main/resources/default
 - rounding rule (done)
 - read Monthly Tax Rate from input (done)
 - pass the second person test (done)
-
+- error handling
+- better test coverage
+- list assumption
  
 ## Background
  
