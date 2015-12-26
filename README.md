@@ -12,6 +12,7 @@ runMain com.myob.MainApp src/test/resources/input.csv src/main/resources/default
 ## Assumption:
 - all numbers involve in will never exceed `Int.MaxValue` (2147483647), otherwise we should use `BigDecimal` instead of `Int`
 - no negative tax rates or salary will ever happen. 
+- 'payment start date' becomes 'pay period' directly
 
 ## Tasks
 - report payment slip (done)
