@@ -9,6 +9,9 @@ runMain com.myob.MainApp src/test/resources/input.csv src/main/resources/default
 - The second argument is tax table file path (optional), if it is omitted, default tax table is used. 
 - The third argument is out put file path (optional), if it is omitted, the app will output the result to console directly.   
  
+## Assumption:
+- all numbers involve in will never exceed `Int.MaxValue` (2147483647), otherwise we should use `BigDecimal` instead of `Int`
+- no negative tax rates or salary will ever happen. 
 
 ## Tasks
 - report payment slip (done)
@@ -21,9 +24,9 @@ runMain com.myob.MainApp src/test/resources/input.csv src/main/resources/default
 - rounding rule (done)
 - read Monthly Tax Rate from input (done)
 - pass the second person test (done)
-- error handling
-- better test coverage
-- list assumption
+- error handling (done)
+- better test coverage (done)
+- list assumption (done)
  
 ## Background
  

@@ -14,6 +14,7 @@ class IncomeTaxSpec extends Specification {
     report tax with a roof-break range                            $reportWithRoofBreak
     report tax with a 0 base for all range                        $reportWithOneRate
     report error if input is invalid                              $reportZero
+    report error for very large number                            $reportErrorWhenTooManyDigits
                                                       """
 
   def report = {
@@ -43,6 +44,11 @@ class IncomeTaxSpec extends Specification {
 
   def reportZero = {
     val tax = IncomeTax(List("information that we do not understand")).of(1)
+    tax must beNone
+  }
+
+  def reportErrorWhenTooManyDigits = {
+    val tax = IncomeTax(List("0 and $9999999999999999999999999999999999999999999999       $12 plus 50c for each $1 over $100")).of(100 + 24)
     tax must beNone
   }
 
