@@ -3,9 +3,15 @@ package com.myob
 case class IncomeTax(taxTable: List[String]) {
   implicit def doubleToRoundingDollar(number: Double): RoundingDollar = RoundingDollar(number)
 
-  def of(salary: Double): RoundingDollar = {
-    val amount = taxRangeList.find(_.isInRange(salary)).map(_.amount(salary)).getOrElse(0.0)
-    RoundingDollar(amount)
+  def of(salary: Double): Option[RoundingDollar] = {
+    val amount = taxRangeList.find(_.isInRange(salary)).map(_.amount(salary))
+    amount match {
+      case Some(digits) =>
+        Some(RoundingDollar(digits))
+      case None =>
+        None
+    }
+
   }
 
   def taxRangeList = {

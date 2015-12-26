@@ -12,7 +12,7 @@ class PersonalTaxSpec extends Specification {
     report with super                               $reportAccordingToSuper
     report base on IncomeTax                        $reportAccordingToIncomeTax
                                                       """
-  private val zeroTax = IncomeTax(List())
+  private val zeroTax = IncomeTax(List("0 and over   $0 plus 0c for each $1 over $0"))
 
   def report = {
     new PersonalTax(12, 0, zeroTax).report must equalTo("1,0,1,0")

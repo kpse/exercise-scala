@@ -7,11 +7,15 @@ case class PersonalTax(salary: Double, superRate: Double, incomeTaxRate: IncomeT
 
   def superTax: RoundingDollar = grossIncome * superRate * 0.01
 
-  def netIncome: RoundingDollar = grossIncome - incomeTax
+  def netIncome: Option[RoundingDollar] = incomeTax.map(grossIncome - _)
 
-  def incomeTax: RoundingDollar = incomeTaxRate.of(salary)
+  def incomeTax: Option[RoundingDollar] = incomeTaxRate.of(salary)
 
   def grossIncome: RoundingDollar = salary / 12
 
-  def report = List(grossIncome, incomeTax, netIncome, superTax).mkString(",")
+  def report = {
+    val result = for (income <- incomeTax; net <- netIncome)
+      yield List(grossIncome, income, net, superTax).mkString(",")
+    result.getOrElse("error in calculating tax")
+  }
 }
