@@ -1,9 +1,18 @@
 # Payment slip
 ## Usage:
+### from sbt
 open sbt shell, then
 ```
 runMain com.myob.MainApp src/test/resources/input.csv src/main/resources/default_tax_table output.txt
 ```
+
+### from jar
+
+```
+sbt clean test package &&  
+scala -classpath target/scala-2.11/payment-slip_2.11-1.0.jar com.myob.MainApp src/test/resources/input.csv src/main/resources/default_tax_table output.txt 
+```
+
 ### Arguments:
 - The first argument is input file path (required), otherwise the usage tip will be printed.
 - The second argument is tax table file path (optional), if it is omitted, default tax table is used. 
