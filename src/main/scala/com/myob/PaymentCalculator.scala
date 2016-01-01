@@ -9,6 +9,4 @@ case class PaymentCalculator(tax: IncomeTax) {
     case _ =>
       "The employee information consists of first name, last name, annual salary, super rate (%) and payment period, separated by comma."
   }
-
-
 }

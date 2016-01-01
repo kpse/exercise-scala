@@ -19,7 +19,7 @@ case class PersonalTax(salary: Double, superRate: Double, incomeTaxRate: IncomeT
 
   def report = {
     val result = for (income <- incomeTax; net <- netIncome; sup <- superTax)
-      yield List(grossIncome, income, net, sup).mkString(",")
+      yield List(grossIncome, income, net, sup).map(_.toInt).mkString(",")
     result.getOrElse(s"Error in calculating tax: $errorMessage")
   }
 
