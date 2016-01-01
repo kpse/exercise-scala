@@ -38,7 +38,8 @@ class PersonalTaxSpec extends Specification {
   }
 
   def reportErrorForTaxTable = {
-    new PersonalTax(1, 100, IncomeTax(List())).report must equalTo("Error in calculating tax: No match range in Tax Table")
-    new PersonalTax(1, 51, IncomeTax(List(""))).report must equalTo("Error in calculating tax: No match range in Tax Table")
+    new PersonalTax(1, 10, IncomeTax(List())).report must equalTo("Error in calculating tax: No match range in Tax Table")
+    new PersonalTax(1, 20, IncomeTax(List(""))).report must equalTo("Error in calculating tax: No match range in Tax Table")
+    new PersonalTax(1, 30, IncomeTax(List("making nonsense"))).report must equalTo("Error in calculating tax: No match range in Tax Table")
   }
 }
