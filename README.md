@@ -18,7 +18,8 @@ scala -classpath target/scala-2.11/payment-slip_2.11-1.0.jar com.myob.MainApp sr
 - The second argument is tax table file path (optional), if it is omitted, default tax table is used. 
 - The third argument is out put file path (optional), if it is omitted, the app will output the result to console directly.   
  
-## For Development
+
+## For Development:
 
 Run the following commands before push to remote:  
 
@@ -43,7 +44,7 @@ sbt it:test
 - no negative tax rates or salary will ever happen. 
 - 'payment start date' becomes 'pay period' directly
 
-## Tasks
+## Tasks:
 - report payment slip (done)
 - detail: pay period (done)
 - detail: gross income (done)
@@ -58,7 +59,7 @@ sbt it:test
 - better test coverage (done)
 - list assumption (done)
  
-## Background
+## Background:
  
  When I input the employee's details: first name, last name, annual salary(positive integer) and super rate(0% - 50% inclusive), payment start date, the program should generate payslip information with name, pay period,  gross income, income tax, net income and super.
  
@@ -76,7 +77,7 @@ sbt it:test
  
 ***Notes: All calculation results should be rounded to the whole dollar. If >= 50 cents round up to the next dollar increment, otherwise round down.***
  
-## Example
+## Example:
 ### input (first name, last name, annual salary, super rate (%), payment start date):
 - David,Rudd,60050,9%,01 March – 31 March
 - Ryan,Chen,120000,10%,01 March – 31 March
