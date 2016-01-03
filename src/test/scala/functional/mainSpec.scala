@@ -5,7 +5,7 @@ import org.specs2.Specification
 
 import scala.io.Source
 
-class IntegrationSpec extends Specification {
+class mainSpec extends Specification {
   def is = s2"""
 
   We can read everything from files

@@ -1,4 +1,4 @@
-package functional
+package it
 
 import java.io.File
 
@@ -7,7 +7,7 @@ import org.specs2.mutable.{Before, Specification}
 
 import scala.io.Source
 
-class E2eSpec extends Specification with Before {
+class IntegrationSpec extends Specification with Before {
   override def is =
     s2"""
 
@@ -17,12 +17,12 @@ class E2eSpec extends Specification with Before {
     write output to file                             $writeToFile
                                                      """
 
-  private val outputFilePath = "src/test/resources/output.txt"
+  private val outputFilePath = "src/it/resources/output.txt"
 
   def readUserFromFile = {
     val outContent = new java.io.ByteArrayOutputStream()
     Console.withOut(outContent) {
-      MainApp.main(Array("src/test/resources/input_david.csv", "src/main/resources/default_tax_table"))
+      MainApp.main(Array("src/it/resources/input_david.csv", "src/main/resources/default_tax_table"))
     }
     outContent.toString.split("\n").toList must contain("David Rudd,01 March – 31 March,5004,922,4082,450")
   }
@@ -30,13 +30,13 @@ class E2eSpec extends Specification with Before {
   def readTaxTableFromFile = {
     val outContent = new java.io.ByteArrayOutputStream()
     Console.withOut(outContent) {
-      MainApp.main(Array("src/test/resources/input.csv", "src/test/resources/zero_tax_table"))
+      MainApp.main(Array("src/it/resources/input.csv", "src/it/resources/zero_tax_table"))
     }
     outContent.toString.split("\n").toList must containAllOf(List("David Rudd,01 March – 31 March,5004,0,5004,450", "Ryan Chen,01 March – 31 March,10000,0,10000,1000"))
   }
 
   def writeToFile = {
-    MainApp.main(Array("src/test/resources/input_ryan.csv", "src/main/resources/default_tax_table", outputFilePath))
+    MainApp.main(Array("src/it/resources/input_ryan.csv", "src/main/resources/default_tax_table", outputFilePath))
     Source.fromFile(outputFilePath).getLines() must contain("Ryan Chen,01 March – 31 March,10000,2696,7304,1000")
   }
 

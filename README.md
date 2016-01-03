@@ -18,6 +18,26 @@ scala -classpath target/scala-2.11/payment-slip_2.11-1.0.jar com.myob.MainApp sr
 - The second argument is tax table file path (optional), if it is omitted, default tax table is used. 
 - The third argument is out put file path (optional), if it is omitted, the app will output the result to console directly.   
  
+## For Development
+
+Run the following commands before push to remote:  
+
+```
+git pull --rebase && sbt test it:test && git push
+```
+
+### unit test
+
+```
+sbt test
+```
+
+### integration test
+
+```
+sbt it:test
+```
+ 
 ## Assumption:
 - all numbers involve in will never exceed `Int.MaxValue` (2147483647), otherwise we should use `BigDecimal` instead of `Int`
 - no negative tax rates or salary will ever happen. 
