@@ -1,10 +1,6 @@
 package com.myob
 
 case class PersonalTax(salary: Double, superRate: Double, incomeTaxRate: IncomeTax) {
-  implicit def doubleToRoundingDollar(number: Double): RoundingDollar = RoundingDollar(number)
-
-  implicit def IntToRoundingDollar(number: Int): RoundingDollar = RoundingDollar(number)
-
   def superTax: Option[RoundingDollar] = superRate match {
     case rate if rate >= 0 && rate <= 50 =>
       Some(grossIncome * rate * 0.01)

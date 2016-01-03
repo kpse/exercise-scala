@@ -10,3 +10,9 @@ case class RoundingDollar(number: Double) {
   def -(dollar: RoundingDollar) = RoundingDollar(number - dollar.number)
 
 }
+
+object RoundingDollar {
+  implicit def fromDouble(number: Double): RoundingDollar = RoundingDollar(number)
+
+  implicit def fromInt(number: Int): RoundingDollar = RoundingDollar(number)
+}
