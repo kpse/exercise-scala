@@ -14,9 +14,6 @@ case class PersonalTax(salary: Double, superRate: Double, incomeTaxRate: IncomeT
   def grossIncome: RoundingDollar = salary / 12 * totalRate
 
   def report = {
-    println(salary)
-    println(totalRate)
-    println(grossIncome)
     val result = for {tax <- incomeTax
                       net <- netIncome
                       sup <- superTax
