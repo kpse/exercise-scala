@@ -1,6 +1,6 @@
 package com.myob
 
-import org.joda.time.{Days, DateTime}
+import org.joda.time.{DateTimeConstants, Days, DateTime}
 import org.joda.time.format.DateTimeFormat
 
 case class PaymentCalculator(tax: IncomeTax, year: Long = 2016) {
@@ -22,12 +22,18 @@ case class PaymentCalculator(tax: IncomeTax, year: Long = 2016) {
     case startEndDate(start, end) =>
       val startDate = DateTime.parse(s"$start $year", DateTimeFormat.forPattern("dd MMMM yyyy"))
       val endDate = DateTime.parse(s"$end $year", DateTimeFormat.forPattern("dd MMMM yyyy"))
+      println(s"working = ${totalWorkingDays(startDate, endDate) * 1.0}")
+      println(s"total = ${totalWorkingDays(endDate.dayOfMonth().withMinimumValue(), endDate.dayOfMonth().withMaximumValue())}")
       totalWorkingDays(startDate, endDate) * 1.0 / totalWorkingDays(endDate.dayOfMonth().withMinimumValue(), endDate.dayOfMonth().withMaximumValue())
     case _ => 1.0
   }
 
   def totalWorkingDays(firstDay: DateTime, lastDay: DateTime) = {
-    Days.daysBetween(firstDay, lastDay).getDays - 2 * Days.daysBetween(firstDay, lastDay).toStandardWeeks.getWeeks
+    Range(0, Days.daysBetween(firstDay, lastDay).getDays + 1).foldLeft(0) { (acc, d) => firstDay.plusDays(d).dayOfWeek().get() match {
+      case DateTimeConstants.SUNDAY | DateTimeConstants.SATURDAY => acc
+      case _ => acc + 1
+    }
+    }
   }
 
   def payslip(input: String) = input match {

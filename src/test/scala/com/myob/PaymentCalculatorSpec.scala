@@ -14,6 +14,7 @@ class PaymentCalculatorSpec extends Specification {
     ignore spaces around comma                             $handleMoreSpace
     report half month payslip                              $halfMonthPayslip
     report one day payslip                                 $oneDayPayslip
+    report zero payslip for weekend                        $nonWorkingDayPayslip
                                                       """
 
   def payslipForDavid = {
@@ -58,9 +59,18 @@ class PaymentCalculatorSpec extends Specification {
   def oneDayPayslip = {
     val taxTable = new IncomeTax(List("$80,001 - $180,000      $0 plus 0c for each $1 over $80,000"))
     //1 actual working days / 22 total working days
-    val payslip = PaymentCalculator(taxTable, 2015).payslip("Ryan,Chen,120000,0%,30 March – 31 March")
+    val payslip = PaymentCalculator(taxTable, 2015).payslip("Ryan,Chen,120000,0%,31 March – 31 March")
 
-    payslip must equalTo("Ryan Chen,30 March – 31 March,455,0,455,0")
+    payslip must equalTo("Ryan Chen,31 March – 31 March,455,0,455,0")
+
+  }
+
+  def nonWorkingDayPayslip = {
+    val taxTable = new IncomeTax(List("$80,001 - $180,000      $0 plus 0c for each $1 over $80,000"))
+    //0 actual working days / 22 total working days
+    val payslip = PaymentCalculator(taxTable, 2015).payslip("Ryan,Chen,120000,0%,28 March – 29 March")
+
+    payslip must equalTo("Ryan Chen,28 March – 29 March,0,0,0,0")
 
   }
 }
