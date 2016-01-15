@@ -1,6 +1,6 @@
 package com.myob
 
-case class PersonalTax(salary: Double, superRate: Double, incomeTaxRate: IncomeTax) {
+case class PersonalTax(salary: Double, superRate: Double, incomeTaxRate: IncomeTax, totalRate: Double = 1.0) {
   def superTax: Option[RoundingDollar] = superRate match {
     case rate if rate >= 0 && rate <= 50 =>
       Some(grossIncome * rate * 0.01)
@@ -9,11 +9,14 @@ case class PersonalTax(salary: Double, superRate: Double, incomeTaxRate: IncomeT
 
   def netIncome: Option[RoundingDollar] = incomeTax.map(grossIncome - _)
 
-  def incomeTax: Option[RoundingDollar] = incomeTaxRate.of(salary)
+  def incomeTax: Option[RoundingDollar] = incomeTaxRate.of(salary).map(_ * totalRate)
 
-  def grossIncome: RoundingDollar = salary / 12
+  def grossIncome: RoundingDollar = salary / 12 * totalRate
 
   def report = {
+    println(salary)
+    println(totalRate)
+    println(grossIncome)
     val result = for {tax <- incomeTax
                       net <- netIncome
                       sup <- superTax

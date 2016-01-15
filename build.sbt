@@ -6,7 +6,8 @@ version := "1.0"
 
 scalaVersion := "2.11.4"
 
-libraryDependencies ++= Seq("org.specs2" %% "specs2-core" % "3.6.6" % "test")
+libraryDependencies ++= Seq("org.specs2" %% "specs2-core" % "3.6.6" % "test",
+                            "joda-time" % "joda-time" % "2.9.1")
 
 scalacOptions in Test ++= Seq("-Yrangepos")
 
@@ -22,6 +23,7 @@ lazy val root = (project in file(".")).
   settings(commonSettings: _*).
   settings(Defaults.itSettings: _*).
   settings(
-    libraryDependencies += "org.specs2" %% "specs2-core" % "3.6.6" % "it,test"
+    libraryDependencies ++= Seq("org.specs2" %% "specs2-core" % "3.6.6" % "it,test",
+      "joda-time" % "joda-time" % "2.9.1")
     // other settings here
   )
