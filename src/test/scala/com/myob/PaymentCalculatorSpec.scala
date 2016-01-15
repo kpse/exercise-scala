@@ -13,6 +13,7 @@ class PaymentCalculatorSpec extends Specification {
     report error for wrong input                           $reportError
     ignore spaces around comma                             $handleMoreSpace
     report half month payslip                              $halfMonthPayslip
+    report one day payslip                                 $oneDayPayslip
                                                       """
 
   def payslipForDavid = {
@@ -51,6 +52,15 @@ class PaymentCalculatorSpec extends Specification {
     val payslip = PaymentCalculator(taxTable, 2015).payslip("Ryan,Chen,120000,0%,15 March – 31 March")
 
     payslip must equalTo("Ryan Chen,15 March – 31 March,5455,0,5455,0")
+
+  }
+
+  def oneDayPayslip = {
+    val taxTable = new IncomeTax(List("$80,001 - $180,000      $0 plus 0c for each $1 over $80,000"))
+    //1 actual working days / 22 total working days
+    val payslip = PaymentCalculator(taxTable, 2015).payslip("Ryan,Chen,120000,0%,30 March – 31 March")
+
+    payslip must equalTo("Ryan Chen,30 March – 31 March,455,0,455,0")
 
   }
 }
