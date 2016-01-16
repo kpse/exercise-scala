@@ -15,7 +15,8 @@ class PaymentCalculatorSpec extends Specification {
     report half month payslip                              $halfMonthPayslip
     report one day payslip                                 $oneDayPayslip
     report zero payslip for weekend                        $nonWorkingDayPayslip
-    report payslip for multiple months                     $crossMonthPaySlip
+    report payslip for 2 months                            $crossMonthPaySlip
+    report payslip for 3 and more months                   $cross3MonthPaySlip
                                                       """
 
   def payslipForDavid = {
@@ -82,6 +83,17 @@ class PaymentCalculatorSpec extends Specification {
     val payslip = PaymentCalculator(taxTable, 2015).payslip("Ryan,Chen,120000,0%,30 March – 03 April")
 
     payslip must equalTo("Ryan Chen,30 March – 31 March,909,0,909,0\nRyan Chen,01 April – 03 April,1364,0,1364,0")
+
+  }
+
+  def cross3MonthPaySlip = {
+    val taxTable = new IncomeTax(List("$80,001 - $180,000      $0 plus 0c for each $1 over $80,000"))
+    //2 actual working days / 22 total working days in March
+    //22 actual working days / 22 total working days in April
+    //1 actual working days / 21 total working days in May
+    val payslip = PaymentCalculator(taxTable, 2015).payslip("Ryan,Chen,120000,0%,30 March – 01 May")
+
+    payslip must equalTo("Ryan Chen,30 March – 31 March,909,0,909,0\nRyan Chen,01 April – 30 April,10000,0,10000,0\nRyan Chen,01 May – 01 May,476,0,476,0")
 
   }
 }
