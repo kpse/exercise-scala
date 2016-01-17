@@ -1,8 +1,5 @@
 package com.myob
 
-import org.joda.time.format.DateTimeFormat
-import org.joda.time.{DateTime, Months}
-
 case class PaymentCalculator(tax: IncomeTax, year: Long = 2016) {
   val employee = """^(\w+)\s*,\s*(\w+)\s*,\s*(\d+)\s*,\s*(\d+)%\s*,\s*(.+)\s*$""".r
 
