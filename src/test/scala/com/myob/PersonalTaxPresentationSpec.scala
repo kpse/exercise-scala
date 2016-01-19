@@ -2,7 +2,7 @@ package com.myob
 
 import org.specs2.Specification
 
-class PersonalTaxSpec extends Specification {
+class PersonalTaxPresentationSpec extends Specification {
   def is = s2"""
 
   This is a specification for the 'Personal Tax'

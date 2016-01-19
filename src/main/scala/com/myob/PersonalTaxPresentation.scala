@@ -1,8 +1,8 @@
 package com.myob
 
-case class PersonalTaxPresentation(salary: Double, superRate: Double, incomeTax: Option[RoundingDollar]) {
+case class PersonalTaxPresentation(salary: Double, superRate: Double, incomeTax: Option[RoundingDollar], totalRate: Double = 1.0) {
   def report = {
-    val result = for {tax <- incomeTax
+    val result = for {tax <- incomeTax.map(_ * totalRate)
                       net <- netIncome
                       sup <- superTax
     } yield List(grossIncome, tax, net, sup).map(_.toInt).mkString(",")
@@ -15,9 +15,9 @@ case class PersonalTaxPresentation(salary: Double, superRate: Double, incomeTax:
     case _ => None
   }
 
-  def netIncome: Option[RoundingDollar] = incomeTax.map(grossIncome - _)
+  def netIncome: Option[RoundingDollar] = incomeTax.map(_ * totalRate).map(grossIncome - _)
 
-  def grossIncome: RoundingDollar = salary / 12
+  def grossIncome: RoundingDollar = salary / 12 * totalRate
 
   private def errorMessage = List(incomeTax, superTax)
     .zip(List("No match range in Tax Table", "Invalid Super Tax Rate(0 ~ 50% inclusive)"))

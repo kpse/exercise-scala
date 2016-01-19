@@ -59,3 +59,9 @@ sbt it:test
 - better test coverage (done)
 - list assumption (done)
 
+- partial month (done)
+- cross months (done) 
+  - list months (done)
+- list weeks
+- cross years
+

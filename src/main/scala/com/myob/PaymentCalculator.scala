@@ -1,11 +1,14 @@
 package com.myob
 
-case class PaymentCalculator(tax: IncomeTax) {
-  val employee = """^(\w+)\s*,\s*(\w+)\s*,\s*(\d+)\s*,\s*(\d+)%\s*,\s*(.+)\s*$""".r
+case class PaymentCalculator(tax: IncomeTax, year: Long = 2016) {
+  val employee = """^(\w+)\s*,\s*(\w+)\s*,\s*(\d+)\s*,\s*([\d.]+)%\s*,\s*(.+)\s*$""".r
 
   def payslip(input: String) = input match {
     case employee(firstName, lastName, salary, superRate, period) =>
-      PaymentDetail(s"$firstName $lastName", period, PersonalTaxPresentation(salary.toDouble, superRate.toDouble, tax.of(salary.toDouble))).report()
+      MonthlyRate.split(period, year).map {
+        p =>
+          PaymentDetail(s"$firstName $lastName", p.period, PersonalTaxPresentation(salary.toDouble, superRate.toDouble, tax.of(salary.toDouble), p.inMonthRate)).report()
+      }.mkString("\n")
     case _ =>
       "The employee information consists of first name, last name, annual salary, super rate (%) and payment period, separated by comma."
   }
