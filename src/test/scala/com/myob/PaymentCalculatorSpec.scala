@@ -17,6 +17,7 @@ class PaymentCalculatorSpec extends Specification {
     report zero payslip for weekend                        $nonWorkingDayPayslip
     report payslip for 2 months                            $crossMonthPaySlip
     report payslip for 3 and more months                   $cross3MonthPaySlip
+    report payslip for super rate with fragment            $superRateWithFragment
                                                       """
 
   def payslipForDavid = {
@@ -95,5 +96,13 @@ class PaymentCalculatorSpec extends Specification {
 
     payslip must equalTo("Ryan Chen,30 March – 31 March,909,0,909,0\nRyan Chen,01 April – 30 April,10000,0,10000,0\nRyan Chen,01 May – 01 May,476,0,476,0")
 
+  }
+
+  def superRateWithFragment = {
+    val taxTable = new IncomeTax(List("$80,001 - $180,000      $0 plus 0c for each $1 over $80,000"))
+
+    val payslip = PaymentCalculator(taxTable, 2015).payslip("Ryan,Chen,110000,9.5%,01 March – 31 March")
+
+    payslip must equalTo("Ryan Chen,01 March – 31 March,9167,0,9167,871")
   }
 }

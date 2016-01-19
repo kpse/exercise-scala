@@ -1,7 +1,7 @@
 package com.myob
 
 case class PaymentCalculator(tax: IncomeTax, year: Long = 2016) {
-  val employee = """^(\w+)\s*,\s*(\w+)\s*,\s*(\d+)\s*,\s*(\d+)%\s*,\s*(.+)\s*$""".r
+  val employee = """^(\w+)\s*,\s*(\w+)\s*,\s*(\d+)\s*,\s*([\d.]+)%\s*,\s*(.+)\s*$""".r
 
   def payslip(input: String) = input match {
     case employee(firstName, lastName, salary, superRate, period) =>
