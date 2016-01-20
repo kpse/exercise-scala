@@ -7,7 +7,7 @@ case class PaymentCalculator(tax: IncomeTax, year: Long = 2016) {
     case employee(firstName, lastName, salary, superRate, period) =>
       MonthlyRate.split(period, year).map {
         p =>
-          PaymentDetail(s"$firstName $lastName", p.period, PersonalTaxPresentation(salary.toDouble, superRate.toDouble, tax.of(salary.toDouble), p.inMonthRate)).report()
+          PaymentDetail(s"$firstName $lastName", p.period, PersonalTaxPresenter(salary.toDouble, superRate.toDouble, tax.of(salary.toDouble), p.inMonthRate)).report()
       }.mkString("\n")
     case _ =>
       "The employee information consists of first name, last name, annual salary, super rate (%) and payment period, separated by comma."
