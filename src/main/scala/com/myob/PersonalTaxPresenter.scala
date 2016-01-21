@@ -3,16 +3,16 @@ package com.myob
 case class PersonalTax(grossIncome: RoundingDollar, incomeTax: RoundingDollar, netIncome: RoundingDollar, superTax: RoundingDollar) {
   def report = List(grossIncome, incomeTax, netIncome, superTax).map(_.toInt).mkString(",")
 }
+
 case class PersonalTaxPresenter(salary: Double, superRate: Double, incomeTax: Option[RoundingDollar], totalRate: Double = 1.0) {
 
   def report = tax.map(_.report).getOrElse(s"Error in calculating tax: $errorMessage")
 
-  def tax = {
-    for {tax <- incomeTax.map(_ * totalRate)
-         net <- netIncome
-         sup <- superTax
-    } yield PersonalTax(grossIncome, tax, net, sup)
-  }
+  def tax = for {
+    tax <- incomeTax.map(_ * totalRate)
+    net <- netIncome
+    sup <- superTax
+  } yield PersonalTax(grossIncome, tax, net, sup)
 
   def superTax: Option[RoundingDollar] = superRate match {
     case rate if rate >= 0 && rate <= 50 =>
