@@ -18,6 +18,7 @@ class PaymentCalculatorSpec extends Specification {
     report payslip for 2 months                            $crossMonthPaySlip
     report payslip for 3 and more months                   $cross3MonthPaySlip
     report payslip for super rate with fragment            $superRateWithFraction
+    report payslip for particular year                     $historicalTables
                                                       """
 
   def payslipForDavid = {
@@ -104,5 +105,22 @@ class PaymentCalculatorSpec extends Specification {
     val payslip = PaymentCalculator(taxTable, 2015).payslip("Ryan,Chen,110000,9.5%,01 March – 31 March")
 
     payslip must equalTo("Ryan Chen,01 March – 31 March,9167,0,9167,871")
+  }
+
+  def historicalTables = {
+    val taxTable2015 = new IncomeTax(List("$10 - $13      $0 plus 0c for each $1 over $0"))
+    val taxTable2016 = new IncomeTax(List("$10 - $13      $0 plus 100c for each $1 over $0"))
+
+    val allTables = HistoricalIncomeTax(Map("2015-07-01" -> taxTable2015, "2016-07-01" -> taxTable2016))
+
+    val calculator = PaymentCalculator(allTables, 2015).get
+    val payslip2015 = calculator.payslip("Ryan,Chen,12,0%,01 March – 31 March")
+
+    payslip2015 must equalTo("Ryan Chen,01 March – 31 March,1,0,1,0")
+
+    val calculator2016 = PaymentCalculator(allTables, 2016).get
+    val payslip2016 = calculator2016.payslip("Ryan,Chen,12,0%,01 March – 31 March")
+
+    payslip2016 must equalTo("Ryan Chen,01 March – 31 March,1,1,0,0")
   }
 }

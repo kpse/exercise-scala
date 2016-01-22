@@ -13,3 +13,8 @@ case class PaymentCalculator(tax: IncomeTax, year: Long = 2016) {
       "The employee information consists of first name, last name, annual salary, super rate (%) and payment period, separated by comma."
   }
 }
+
+object PaymentCalculator {
+  def apply(tax: IncomeTax) = new PaymentCalculator(tax)
+  def apply(history: HistoricalIncomeTax, year: Long) = history.yearOf(year).map(new PaymentCalculator(_, year))
+}
