@@ -15,18 +15,20 @@ object HistoricalIncomeTax {
   val YearDeclaration = """The following rates for 2012-13 apply from (.+)$""".r
 
   def parse(inputs: List[String]): HistoricalIncomeTax = {
-    inputs.head match {
-      case YearDeclaration(time) =>
-        val startDate = DateTime.parse(time, DateTimeFormat.forPattern("dd MMMM yyyy"))
-        val tail = inputs.tail.takeWhile {
-          case YearDeclaration(t) => false
-          case _ => true
-        }
-        HistoricalIncomeTax(Map(startDate.toString("yyyy-MM-dd") -> IncomeTax(tail)))
-      case _ =>
-        HistoricalIncomeTax(Map("" -> IncomeTax(List())))
+    val sameYear: (String) => Boolean = {
+      case YearDeclaration(t) => false
+      case _ => true
     }
-
-
+    def extract(info: List[String]): List[(String, IncomeTax)] = {
+      info match {
+        case YearDeclaration(time) :: xs =>
+          val startDate = DateTime.parse(time, DateTimeFormat.forPattern("dd MMMM yyyy"))
+          List(startDate.toString("yyyy-MM-dd") -> IncomeTax(xs.takeWhile(sameYear))) ++ extract(xs.dropWhile(sameYear))
+        case _ =>
+          List()
+      }
+    }
+    HistoricalIncomeTax(extract(inputs).toMap)
   }
+
 }
