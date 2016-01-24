@@ -6,7 +6,10 @@ import org.joda.time.format.DateTimeFormat
 case class HistoricalIncomeTax(taxTables: Map[String, IncomeTax]) {
   def yearOf(year: Long): Option[IncomeTax] = {
     val financialYear = s"${year}-07-01"
-    taxTables.get(financialYear)
+    taxTables.get(financialYear) match {
+      case Some(data) => Some(data)
+      case None => taxTables.get("default")
+    }
   }
 
 }
@@ -28,7 +31,14 @@ object HistoricalIncomeTax {
           List()
       }
     }
-    HistoricalIncomeTax(extract(inputs).toMap)
+
+    inputs match {
+      case YearDeclaration(time) :: xs =>
+        HistoricalIncomeTax(extract(inputs).toMap)
+      case x :: xs =>
+        HistoricalIncomeTax(List("default" -> IncomeTax(xs)).toMap)
+    }
+
   }
 
 }

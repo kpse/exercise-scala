@@ -13,6 +13,7 @@ class HistoricalIncomeTaxSpec extends Specification {
     extract from different years                        $extract2
     extract from multiple years                         $extract3
     report base on year                                 $report
+    compatible with old format                          $compatible
 
                                                       """
 
@@ -52,6 +53,13 @@ class HistoricalIncomeTaxSpec extends Specification {
   def report = {
     val inputs = List("The following rates for 2012-13 apply from 1 July 2012",
       "Taxable income   Tax on this income",
+      "0 - $18,200     Nil")
+    val tax = HistoricalIncomeTax.parse(inputs).yearOf(2012).get
+    tax.of(1).get.toInt must equalTo(0)
+  }
+
+  def compatible = {
+    val inputs = List("Taxable income   Tax on this income",
       "0 - $18,200     Nil")
     val tax = HistoricalIncomeTax.parse(inputs).yearOf(2012).get
     tax.of(1).get.toInt must equalTo(0)
