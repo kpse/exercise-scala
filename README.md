@@ -5,6 +5,10 @@ open sbt shell, then
 ```
 runMain com.myob.MainApp src/test/resources/input.csv src/main/resources/default_tax_table output.txt
 ```
+for new tax cross years form:
+```
+runMain com.myob.MainApp src/test/resources/input.csv src/main/resources/new_tax_format_table output.txt
+```
 
 ### from jar
 
