@@ -15,7 +15,7 @@ case class HistoricalIncomeTax(taxTables: Map[String, IncomeTax]) {
 }
 
 object HistoricalIncomeTax {
-  val YearDeclaration = """The following rates for 2012-13 apply from (.+)$""".r
+  val YearDeclaration = """The following rates for \d+-\d+ apply from (.+)$""".r
 
   def parse(inputs: List[String]): HistoricalIncomeTax = {
     val sameYear: (String) => Boolean = {

@@ -1,6 +1,8 @@
 package com.myob
 
-case class PaymentCalculator(tax: IncomeTax, year: Long = 2016) {
+import java.time.Year
+
+case class PaymentCalculator(tax: IncomeTax, year: Long = 2015) {
   val employee = """^(\w+)\s*,\s*(\w+)\s*,\s*(\d+)\s*,\s*([\d.]+)%\s*,\s*(.+)\s*$""".r
 
   def payslip(input: String) = input match {
@@ -16,5 +18,5 @@ case class PaymentCalculator(tax: IncomeTax, year: Long = 2016) {
 
 object PaymentCalculator {
   def apply(tax: IncomeTax) = new PaymentCalculator(tax)
-  def apply(history: HistoricalIncomeTax, year: Long) = history.yearOf(year).map(new PaymentCalculator(_, year))
+  def apply(history: HistoricalIncomeTax, year: Long) = for(tax <- history.yearOf(year)) yield new PaymentCalculator(tax, year)
 }
