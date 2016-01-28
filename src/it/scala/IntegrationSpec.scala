@@ -32,7 +32,7 @@ class IntegrationSpec extends Specification with Before {
     Console.withOut(outContent) {
       MainApp.main(Array("src/it/resources/input.csv", "src/it/resources/zero_tax_table"))
     }
-    outContent.toString.split("\n").toList must containAllOf(List("David Rudd,01 March – 31 March,5004,0,5004,450", "Ryan Chen,01 March – 31 March,10000,0,10000,1000"))
+    outContent.toString.split("\n").toList must containAllOf(List("David Rudd,01 March – 31 March,5004,0,5004,450", "Ryan Chen,01 March – 31 March,10000,0,10000,950"))
   }
 
   def writeToFile = {
